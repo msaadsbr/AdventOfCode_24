@@ -22,5 +22,5 @@ for line in lines:
         else:  # If no break, the sequence is safe
             safe_count += 1
 
-# Output the total count of safe sequences
+# Output the total count of safe sequence
 print(safe_count)
