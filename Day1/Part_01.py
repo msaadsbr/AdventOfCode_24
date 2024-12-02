@@ -1,4 +1,4 @@
-# First Make Two Empty Lists
+# Firstly Make Two Empty Lists
 list1 = []
 list2 = []
 
