@@ -1,22 +1,21 @@
 def solve(lines, si, sj, fi, fj):
     if (fi != si and fj != sj) and lines[si][sj][0] == lines[fi][fj][0] :
-        tempi, tempj = si, sj
-        temp1i, temp1j = fi, fj
-        print()
-        difi = si-fi
-        difj = fj-si
-        while (si - difi)>-1 and -1<( sj + difj)<len(lines[0]):
-            lines[si-(difi)][sj+(difj)][1] = "#"
-            si -= difi
-            sj += difj
-        si, sj, fi, fj = tempi, tempj, temp1i, temp1j
-        difi = si - fi
-        difj = fj - si
-        while (si + difi)<len(lines) and -1<(sj - difj)<len(lines[0]) :
-            lines[si + (difi)][sj-(difj)][1] = "#"
-            si += difi
-            sj -= difj
+        upperline = fi - abs(si - fi)
+        lowerline = si + abs(si - fi)
+        upperind = fj + abs(sj - fj) if sj < fj else fj - abs(sj - fj)
+        lowerind = sj - abs(sj - fj) if sj < fj else sj + abs(sj - fj)
 
+        if upperline > -1 and upperind > -1 :
+            try :
+                lines[upperline][upperind][1] = "#"
+
+            except :
+                pass
+        if lowerline > -1 and lowerind > -1 :
+            try :
+                lines[lowerline][lowerind][1] = "#"
+            except :
+                pass
 
 
 with open("input.txt", "r") as f:
@@ -35,5 +34,5 @@ with open("input.txt", "r") as f:
     for line in lines:
         for part in line:
             if part[1]=="#": c += 1
-    print(lines)
+    # print(lines)
     print(c)
