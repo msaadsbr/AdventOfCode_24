@@ -1,39 +1,20 @@
-
-
-
-
-
-
-
 def solve(lines, si, sj, fi, fj):
-    upperline = fi - abs(si - fi)
-    lowerline = si + abs(si - fi)
-    if sj<fj:
-        upperind = fj + abs(sj - fj)
-        lowerind = sj - abs(sj - fj)
-        while upperline > -1 and -1 < upperind < len(lines[0]) :
-            lines[upperline][upperind][1] = "#"
-            upperline -= upperline
-            upperind = upperind + abs(fj - upperind)
-            fj = upperind
-        while lowerline < len(lines) and -1 < lowerind < len(lines[0]) :
-            lines[lowerline][lowerind][1] = "#"
-            lowerline += lowerline
-            lowerind = lowerind - abs(fj - lowerind)
-            fj = lowerind
-    else:
-        upperind = fj - abs(sj - fj)
-        lowerind = sj + abs(sj - fj)
-        while upperline > -1 and -1 < upperind < len(lines[0]) :
-            lines[upperline][upperind][1] = "#"
-            upperline -= upperline
-            upperind = upperind - abs(fj - upperind)
-            fj = upperind
-        while lowerline < len(lines) and -1 < lowerind < len(lines[0]) :
-            lines[lowerline][lowerind][1] = "#"
-            lowerline += lowerline
-            lowerind = lowerind + abs(fj - lowerind)
-            fj = lowerind
+    if (fi != si and fj != sj) and lines[si][sj][0] == lines[fi][fj][0] :
+        tempi, tempj = si, sj
+        temp1i, temp1j = fi, fj
+        difi = abs(si-fi)
+        difj = fj-sj
+        while (fi - difi)>-1 and -1<( fj + difj)<len(lines[0]):
+            lines[fi-(difi)][fj+(difj)][1] = "#"
+            fi -= difi
+            fj += difj
+        si, sj, fi, fj = tempi, tempj, temp1i, temp1j
+        difi = si - fi
+        difj = fj - sj
+        while (si + difi)<len(lines) and -1<(sj - difj)<len(lines[0]) :
+            lines[si + (difi)][sj-(difj)][1] = "#"
+            si += difi
+            sj -= difj
 
 
 
@@ -47,12 +28,11 @@ with open("input.txt", "r") as f:
             if lines[fi][fj][0]!=".":
                 for si in range(fi, len(lines)):
                     for sj in range(len(lines[0])):
-                        if (fi != si and fj != sj) and lines[si][sj][0] == lines[fi][fj][0] :
-                            solve(lines, si, sj, fi, fj)
+                        solve(lines, si, sj, fi, fj)
     c = 0
 
     for line in lines:
         for part in line:
-            if part[1]=="#": c += 1
-    print(lines)
+            if part[1]=="#" or part[0]!=".": c += 1
+
     print(c)
