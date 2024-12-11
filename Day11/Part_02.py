@@ -1,3 +1,6 @@
+
+## Approach Change From First Part Solution
+
 from collections import defaultdict
 with open("input.txt", "r") as f:
     line = f.readline()
